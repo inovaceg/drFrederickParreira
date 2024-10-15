@@ -42,6 +42,20 @@
         .result h2 {
             margin-top: 0;
         }
+        #whatsapp-field {
+            margin-top: 20px;
+            display: none;
+        }
+        button.submit-whatsapp {
+            background-color: #25D366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        button.submit-whatsapp:hover {
+            background-color: #1ebe56;
+        }
     </style>
 </head>
 <body>
@@ -80,26 +94,26 @@
         <input type="radio" name="atividades_sociais" value="2" required> Frequentemente<br>
         <input type="radio" name="atividades_sociais" value="3" required> Sempre<br><br>
 
-        <!-- Continue com outras perguntas para ansiedade... -->
+        <!-- Continue com outras perguntas de ansiedade... -->
     </div>
 
     <!-- Avaliação de Depressão -->
     <div class="form-section" id="section3">
         <h2>Avaliação de Depressão</h2>
-        <!-- Repita a estrutura de perguntas para depressão -->
+        <!-- Perguntas de depressão -->
         <label>Nos últimos 14 dias, você se sentiu triste ou com um humor deprimido na maior parte do tempo?</label><br>
         <input type="radio" name="humor_deprimido" value="0" required> Nunca<br>
         <input type="radio" name="humor_deprimido" value="1" required> Às vezes<br>
         <input type="radio" name="humor_deprimido" value="2" required> Frequentemente<br>
         <input type="radio" name="humor_deprimido" value="3" required> Quase sempre<br><br>
 
-        <!-- Continue com outras perguntas para depressão -->
+        <!-- Continue com outras perguntas para depressão... -->
     </div>
 
     <!-- Impacto no Dia a Dia -->
     <div class="form-section" id="section4">
         <h2>Impacto no Dia a Dia</h2>
-        <!-- Perguntas de impacto no trabalho, sono, e isolamento social -->
+        <!-- Perguntas sobre impacto no trabalho e vida social -->
         <label>Nos últimos 14 dias, como a ansiedade ou depressão tem afetado seu trabalho, estudos ou vida pessoal?</label><br>
         <input type="radio" name="impacto_trabalho" value="0" required> Nada<br>
         <input type="radio" name="impacto_trabalho" value="1" required> Um pouco<br>
@@ -116,9 +130,18 @@
 
 <div id="result" class="result"></div>
 
+<!-- Campo para número do WhatsApp -->
+<div id="whatsapp-field">
+    <h3>Gostaria de receber orientações no WhatsApp?</h3>
+    <label for="whatsapp-number">Digite seu número de WhatsApp:</label><br>
+    <input type="tel" id="whatsapp-number" name="whatsapp-number" placeholder="(XX) XXXXX-XXXX" pattern="\(\d{2}\) \d{5}-\d{4}">
+    <br><br>
+    <button type="button" class="submit-whatsapp" onclick="enviarWhatsApp()">Enviar Número</button>
+</div>
+
 <script>
-    let currentSection = 0; // Inicializar na primeira seção
-    showSection(currentSection); // Exibir a primeira seção
+    let currentSection = 0; // Inicializa na primeira seção
+    showSection(currentSection); // Exibe a primeira seção
 
     function showSection(n) {
         const sections = document.querySelectorAll('.form-section');
@@ -127,7 +150,7 @@
             if (index === n) section.classList.add('active');
         });
 
-        // Ajustar os botões de navegação
+        // Ajusta os botões de navegação
         const nextBtn = document.getElementById('nextBtn');
         const prevBtn = document.getElementById('prevBtn');
         if (n === 0) {
@@ -148,7 +171,7 @@
         const sections = document.querySelectorAll('.form-section');
         currentSection = currentSection + n;
 
-        // Exibir a seção correta
+        // Exibe a seção correta
         if (currentSection >= 0 && currentSection < sections.length) {
             showSection(currentSection);
         }
@@ -158,21 +181,45 @@
         let pontuacaoAnsiedade = 0;
         let pontuacaoDepressao = 0;
 
-        // Exemplo de cálculo com uma pergunta de ansiedade
+        // Exemplo de cálculo com as perguntas de ansiedade
         const preocupacao = document.querySelector('input[name="preocupacao"]:checked').value;
-        pontuacaoAnsiedade += parseInt(preocupacao);
+        const atividades_sociais = document.querySelector('input[name="atividades_sociais"]:checked').value;
+        pontuacaoAnsiedade += parseInt(preocupacao) + parseInt(atividades_sociais);
 
-        // Continuar com o cálculo para outras perguntas de ansiedade e depressão...
+        // Continue com outras perguntas de ansiedade...
 
+        // Exemplo de cálculo com as perguntas de depressão
+        const humor_deprimido = document.querySelector('input[name="humor_deprimido"]:checked').value;
+        pontuacaoDepressao += parseInt(humor_deprimido);
+
+        // Continue com outras perguntas de depressão...
+
+        // Exibir resultado
         const resultDiv = document.getElementById('result');
         resultDiv.style.display = 'block';
 
+        let resultadoFinal = "";
         if (pontuacaoAnsiedade <= 10 && pontuacaoDepressao <= 10) {
-            resultDiv.innerHTML = "<h2>Sintomas Leves</h2><p>Você parece estar lidando bem, mas é importante monitorar seu bem-estar emocional.</p>";
+            resultadoFinal = "<h2>Sintomas Leves</h2><p>Você parece estar lidando bem, mas é importante monitorar seu bem-estar emocional.</p>";
         } else if (pontuacaoAnsiedade > 10 || pontuacaoDepressao > 10) {
-            resultDiv.innerHTML = "<h2>Sintomas Moderados</h2><p>Você pode estar enfrentando alguns sintomas de ansiedade ou depressão. É importante buscar apoio para entender melhor como se sente. <br><a href='#'>Agendar consulta com Dr. Frederick Parreira</a></p>";
+            resultadoFinal = "<h2>Sintomas Moderados</h2><p>Você pode estar enfrentando alguns sintomas de ansiedade ou depressão. É importante buscar apoio para entender melhor como se sente. <br><a href='#'>Agendar consulta com Dr. Frederick Parreira</a></p>";
         } else if (pontuacaoAnsiedade > 20 || pontuacaoDepressao > 20) {
-            resultDiv.innerHTML = "<h2>Sintomas Graves</h2><p>Você pode estar enfrentando sintomas graves de ansiedade ou depressão. Recomendamos que você busque apoio imediato. <br><a href='#'>Agendar consulta com Dr. Frederick Parreira</a></p>";
+            resultadoFinal = "<h2>Sintomas Graves</h2><p>Você pode estar enfrentando sintomas graves de ansiedade ou depressão. Recomendamos que você busque apoio imediato. <br><a href='#'>Agendar consulta com Dr. Frederick Parreira</a></p>";
+        }
+
+        resultDiv.innerHTML = resultadoFinal;
+
+        // Exibir campo para WhatsApp
+        document.getElementById('whatsapp-field').style.display = 'block';
+    }
+
+    function enviarWhatsApp() {
+        const numero = document.getElementById('whatsapp-number').value;
+        if (numero) {
+            alert(`Número de WhatsApp ${numero} enviado! Entraremos em contato em breve.`);
+            // Aqui você pode adicionar código para enviar o número para um servidor ou API
+        } else {
+            alert("Por favor, insira um número de WhatsApp válido.");
         }
     }
 </script>
