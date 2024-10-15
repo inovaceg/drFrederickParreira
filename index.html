@@ -238,34 +238,43 @@
         let pontuacaoAnsiedade = 0;
         let pontuacaoDepressao = 0;
 
-        // Exemplo de cálculo com as perguntas de ansiedade
+        // Coletar todas as respostas para ansiedade
         const preocupacao = document.querySelector('input[name="preocupacao"]:checked').value;
         const atividades_sociais = document.querySelector('input[name="atividades_sociais"]:checked').value;
-        pontuacaoAnsiedade += parseInt(preocupacao) + parseInt(atividades_sociais);
+        const controle_pensamentos = document.querySelector('input[name="controle_pensamentos"]:checked').value;
+        const sintomas_fisicos = document.querySelector('input[name="sintomas_fisicos"]:checked').value;
+        const tensao_agitacao = document.querySelector('input[name="tensao_agitacao"]:checked').value;
 
-        // Continue com outras perguntas de ansiedade...
+        // Somar todas as respostas de ansiedade
+        pontuacaoAnsiedade += parseInt(preocupacao) + parseInt(atividades_sociais) + parseInt(controle_pensamentos) + parseInt(sintomas_fisicos) + parseInt(tensao_agitacao);
 
-        // Exemplo de cálculo com as perguntas de depressão
+        // Coletar todas as respostas para depressão
         const humor_deprimido = document.querySelector('input[name="humor_deprimido"]:checked').value;
-        pontuacaoDepressao += parseInt(humor_deprimido);
+        const interesse_atividades = document.querySelector('input[name="interesse_atividades"]:checked').value;
+        const culpa_autoestima = document.querySelector('input[name="culpa_autoestima"]:checked').value;
+        const decisoes_simples = document.querySelector('input[name="decisoes_simples"]:checked').value;
+        const energia_atividades = document.querySelector('input[name="energia_atividades"]:checked').value;
 
-        // Continue com outras perguntas de depressão...
+        // Somar todas as respostas de depressão
+        pontuacaoDepressao += parseInt(humor_deprimido) + parseInt(interesse_atividades) + parseInt(culpa_autoestima) + parseInt(decisoes_simples) + parseInt(energia_atividades);
 
         // Exibir resultado
         const resultDiv = document.getElementById('result');
         resultDiv.style.display = 'block';
 
         let resultadoFinal = "";
-        if (pontuacaoAnsiedade <= 10 && pontuacaoDepressao <= 10) {
+        const pontuacaoTotal = pontuacaoAnsiedade + pontuacaoDepressao;
+
+        if (pontuacaoTotal <= 10) {
             resultadoFinal = `<h2>Sintomas Leves</h2>
                               <p>Você apresenta sinais leves de ansiedade ou depressão. Isso pode ser apenas uma fase, mas fique atento(a) a mudanças no seu estado emocional.</p>
                               <p>Riscos Futuros: Se não gerenciado, o estresse pode aumentar e levar a sintomas mais graves. Cuidar de sua saúde mental é essencial para evitar problemas futuros.</p>`;
-        } else if (pontuacaoAnsiedade > 10 || pontuacaoDepressao > 10) {
+        } else if (pontuacaoTotal > 10 && pontuacaoTotal <= 20) {
             resultadoFinal = `<h2>Sintomas Moderados</h2>
                               <p>Você está enfrentando sintomas moderados de ansiedade ou depressão. É importante começar a prestar atenção em como essas emoções afetam seu dia a dia.</p>
                               <p>Riscos Futuros: Sem o acompanhamento correto, sintomas moderados podem evoluir para algo mais sério. Considere buscar ajuda e adotar estratégias de autocuidado.</p>
                               <a href='#'>Agendar consulta com Dr. Frederick Parreira</a>`;
-        } else if (pontuacaoAnsiedade > 20 || pontuacaoDepressao > 20) {
+        } else if (pontuacaoTotal > 20) {
             resultadoFinal = `<h2>Sintomas Graves</h2>
                               <p>Você pode estar lidando com sintomas graves de ansiedade ou depressão. Isso pode estar afetando seriamente sua vida, e recomendamos buscar ajuda imediatamente.</p>
                               <p>Riscos Futuros: A saúde mental não tratada pode ter efeitos graves. Não espere que os sintomas piorem. Procure ajuda especializada o quanto antes.</p>
