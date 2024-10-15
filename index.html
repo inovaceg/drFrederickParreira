@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubra Seu Nível de Ansiedade e Depressão</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        form {
+            margin: 20px;
+        }
+        .result {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            display: none;
+        }
+        .submit-btn {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Descubra Seu Nível de Ansiedade e Depressão</h1>
+
+<form id="surveyForm">
+    <div id="page1">
+        <h2>Informações Básicas</h2>
+        <label>Nome (ou apelido, se preferir):</label><br>
+        <input type="text" name="nome" required><br><br>
+        <label>Idade:</label><br>
+        <input type="number" name="idade" required><br><br>
+        <label>Você já foi diagnosticado com ansiedade, depressão ou ambos?</label><br>
+        <input type="radio" name="diagnostico" value="ansiedade" required> Ansiedade<br>
+        <input type="radio" name="diagnostico" value="depressao" required> Depressão<br>
+        <input type="radio" name="diagnostico" value="ambos" required> Ambos<br>
+        <input type="radio" name="diagnostico" value="nenhum" required> Nunca<br><br>
+    </div>
+
+    <div id="page2">
+        <h2>Avaliação de Ansiedade</h2>
+        <label>Nos últimos 14 dias, você tem se sentido excessivamente preocupado(a) ou ansioso(a), mesmo com situações cotidianas?</label><br>
+        <input type="radio" name="preocupacao" value="0" required> Nunca<br>
+        <input type="radio" name="preocupacao" value="1" required> Raramente<br>
+        <input type="radio" name="preocupacao" value="2" required> Frequentemente<br>
+        <input type="radio" name="preocupacao" value="3" required> Quase sempre<br><br>
+
+        <!-- Repita para outras perguntas... -->
+    </div>
+
+    <div id="page3">
+        <h2>Avaliação de Depressão</h2>
+        <!-- Repita a estrutura de perguntas -->
+    </div>
+
+    <div id="page4">
+        <h2>Impacto no Dia a Dia</h2>
+        <!-- Repita a estrutura de perguntas -->
+    </div>
+
+    <button type="button" class="submit-btn" onclick="calcularResultado()">Enviar</button>
+</form>
+
+<div id="result" class="result"></div>
+
+<script>
+    function calcularResultado() {
+        let pontuacaoAnsiedade = 0;
+        let pontuacaoDepressao = 0;
+
+        // Pontuação de ansiedade
+        const preocupacao = document.querySelector('input[name="preocupacao"]:checked').value;
+        pontuacaoAnsiedade += parseInt(preocupacao);
+
+        // Continue somando os valores de outras perguntas de ansiedade...
+
+        // Pontuação de depressão
+        const humorDeprimido = document.querySelector('input[name="humor_deprimido"]:checked').value;
+        pontuacaoDepressao += parseInt(humorDeprimido);
+
+        // Continue somando os valores de outras perguntas de depressão...
+
+        // Exibir resultados com base na pontuação
+        const resultDiv = document.getElementById('result');
+        resultDiv.style.display = 'block';
+
+        if (pontuacaoAnsiedade <= 10 && pontuacaoDepressao <= 10) {
+            resultDiv.innerHTML = "<h2>Sintomas Leves</h2><p>Você parece estar lidando bem, mas é importante monitorar seu bem-estar emocional. Se precisar de suporte no futuro, estaremos aqui para ajudar.</p>";
+        } else if (pontuacaoAnsiedade > 10 || pontuacaoDepressao > 10) {
+            resultDiv.innerHTML = "<h2>Sintomas Moderados</h2><p>Seus resultados indicam que você pode estar enfrentando alguns sintomas de ansiedade ou depressão. É importante buscar apoio para entender melhor como se sente e trabalhar em seu bem-estar emocional. <br><a href='#'>Agendar consulta com Dr. Frederick Parreira</a></p>";
+        } else if (pontuacaoAnsiedade > 20 || pontuacaoDepressao > 20) {
+            resultDiv.innerHTML = "<h2>Sintomas Graves</h2><p>Seus resultados indicam que você pode estar enfrentando sintomas graves de ansiedade e/ou depressão. Recomendamos que você busque apoio imediato. <br><a href='#'>Agendar consulta com Dr. Frederick Parreira</a></p>";
+        }
+    }
+</script>
+
+</body>
+</html>
