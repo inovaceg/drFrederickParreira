@@ -7,18 +7,32 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-        }
-        form {
             margin: 20px;
         }
+        h1 {
+            color: #4CAF50;
+        }
+        .form-section {
+            margin-bottom: 20px;
+        }
         .result {
-            margin: 20px 0;
-            padding: 10px;
+            padding: 20px;
             border: 1px solid #ddd;
+            margin-top: 20px;
             display: none;
         }
-        .submit-btn {
-            margin-top: 20px;
+        .result h2 {
+            margin-top: 0;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
@@ -27,12 +41,14 @@
 <h1>Descubra Seu Nível de Ansiedade e Depressão</h1>
 
 <form id="surveyForm">
-    <div id="page1">
+    <div class="form-section" id="page1">
         <h2>Informações Básicas</h2>
         <label>Nome (ou apelido, se preferir):</label><br>
         <input type="text" name="nome" required><br><br>
+
         <label>Idade:</label><br>
         <input type="number" name="idade" required><br><br>
+
         <label>Você já foi diagnosticado com ansiedade, depressão ou ambos?</label><br>
         <input type="radio" name="diagnostico" value="ansiedade" required> Ansiedade<br>
         <input type="radio" name="diagnostico" value="depressao" required> Depressão<br>
@@ -40,7 +56,7 @@
         <input type="radio" name="diagnostico" value="nenhum" required> Nunca<br><br>
     </div>
 
-    <div id="page2">
+    <div class="form-section" id="page2">
         <h2>Avaliação de Ansiedade</h2>
         <label>Nos últimos 14 dias, você tem se sentido excessivamente preocupado(a) ou ansioso(a), mesmo com situações cotidianas?</label><br>
         <input type="radio" name="preocupacao" value="0" required> Nunca<br>
@@ -49,19 +65,38 @@
         <input type="radio" name="preocupacao" value="3" required> Quase sempre<br><br>
 
         <!-- Repita para outras perguntas... -->
+        <label>Você tem evitado atividades sociais ou profissionais por se sentir ansioso(a)?</label><br>
+        <input type="radio" name="atividades_sociais" value="0" required> Nunca<br>
+        <input type="radio" name="atividades_sociais" value="1" required> Às vezes<br>
+        <input type="radio" name="atividades_sociais" value="2" required> Frequentemente<br>
+        <input type="radio" name="atividades_sociais" value="3" required> Sempre<br><br>
+
+        <!-- Continue com outras perguntas para ansiedade -->
     </div>
 
-    <div id="page3">
+    <div class="form-section" id="page3">
         <h2>Avaliação de Depressão</h2>
-        <!-- Repita a estrutura de perguntas -->
+        <!-- Repita a estrutura de perguntas para depressão -->
+        <label>Nos últimos 14 dias, você se sentiu triste ou com um humor deprimido na maior parte do tempo?</label><br>
+        <input type="radio" name="humor_deprimido" value="0" required> Nunca<br>
+        <input type="radio" name="humor_deprimido" value="1" required> Às vezes<br>
+        <input type="radio" name="humor_deprimido" value="2" required> Frequentemente<br>
+        <input type="radio" name="humor_deprimido" value="3" required> Quase sempre<br><br>
+
+        <!-- Continue com outras perguntas para depressão -->
     </div>
 
-    <div id="page4">
+    <div class="form-section" id="page4">
         <h2>Impacto no Dia a Dia</h2>
-        <!-- Repita a estrutura de perguntas -->
+        <!-- Perguntas de impacto no trabalho, sono, e isolamento social -->
+        <label>Nos últimos 14 dias, como a ansiedade ou depressão tem afetado seu trabalho, estudos ou vida pessoal?</label><br>
+        <input type="radio" name="impacto_trabalho" value="0" required> Nada<br>
+        <input type="radio" name="impacto_trabalho" value="1" required> Um pouco<br>
+        <input type="radio" name="impacto_trabalho" value="2" required> Afeta frequentemente<br>
+        <input type="radio" name="impacto_trabalho" value="3" required> Afeta muito<br><br>
     </div>
 
-    <button type="button" class="submit-btn" onclick="calcularResultado()">Enviar</button>
+    <button type="button" onclick="calcularResultado()">Enviar</button>
 </form>
 
 <div id="result" class="result"></div>
@@ -71,28 +106,29 @@
         let pontuacaoAnsiedade = 0;
         let pontuacaoDepressao = 0;
 
-        // Pontuação de ansiedade
+        // Calcular pontuação de ansiedade
         const preocupacao = document.querySelector('input[name="preocupacao"]:checked').value;
-        pontuacaoAnsiedade += parseInt(preocupacao);
+        const atividades_sociais = document.querySelector('input[name="atividades_sociais"]:checked').value;
+        pontuacaoAnsiedade += parseInt(preocupacao) + parseInt(atividades_sociais);
+        
+        // Continue calculando outras perguntas de ansiedade...
+        
+        // Calcular pontuação de depressão
+        const humor_deprimido = document.querySelector('input[name="humor_deprimido"]:checked').value;
+        pontuacaoDepressao += parseInt(humor_deprimido);
+        
+        // Continue calculando outras perguntas de depressão...
 
-        // Continue somando os valores de outras perguntas de ansiedade...
-
-        // Pontuação de depressão
-        const humorDeprimido = document.querySelector('input[name="humor_deprimido"]:checked').value;
-        pontuacaoDepressao += parseInt(humorDeprimido);
-
-        // Continue somando os valores de outras perguntas de depressão...
-
-        // Exibir resultados com base na pontuação
+        // Exibir resultado
         const resultDiv = document.getElementById('result');
         resultDiv.style.display = 'block';
 
         if (pontuacaoAnsiedade <= 10 && pontuacaoDepressao <= 10) {
-            resultDiv.innerHTML = "<h2>Sintomas Leves</h2><p>Você parece estar lidando bem, mas é importante monitorar seu bem-estar emocional. Se precisar de suporte no futuro, estaremos aqui para ajudar.</p>";
+            resultDiv.innerHTML = "<h2>Sintomas Leves</h2><p>Você parece estar lidando bem, mas é importante monitorar seu bem-estar emocional.</p>";
         } else if (pontuacaoAnsiedade > 10 || pontuacaoDepressao > 10) {
-            resultDiv.innerHTML = "<h2>Sintomas Moderados</h2><p>Seus resultados indicam que você pode estar enfrentando alguns sintomas de ansiedade ou depressão. É importante buscar apoio para entender melhor como se sente e trabalhar em seu bem-estar emocional. <br><a href='#'>Agendar consulta com Dr. Frederick Parreira</a></p>";
+            resultDiv.innerHTML = "<h2>Sintomas Moderados</h2><p>Você pode estar enfrentando alguns sintomas de ansiedade ou depressão. É importante buscar apoio para entender melhor como se sente. <br><a href='#'>Agendar consulta com Dr. Frederick Parreira</a></p>";
         } else if (pontuacaoAnsiedade > 20 || pontuacaoDepressao > 20) {
-            resultDiv.innerHTML = "<h2>Sintomas Graves</h2><p>Seus resultados indicam que você pode estar enfrentando sintomas graves de ansiedade e/ou depressão. Recomendamos que você busque apoio imediato. <br><a href='#'>Agendar consulta com Dr. Frederick Parreira</a></p>";
+            resultDiv.innerHTML = "<h2>Sintomas Graves</h2><p>Você pode estar enfrentando sintomas graves de ansiedade ou depressão. Recomendamos que você busque apoio imediato. <br><a href='#'>Agendar consulta com Dr. Frederick Parreira</a></p>";
         }
     }
 </script>
