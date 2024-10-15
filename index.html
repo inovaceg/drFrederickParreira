@@ -41,6 +41,7 @@
 <h1>Descubra Seu Nível de Ansiedade e Depressão</h1>
 
 <form id="surveyForm">
+    <!-- Informações Básicas -->
     <div class="form-section" id="page1">
         <h2>Informações Básicas</h2>
         <label>Nome (ou apelido, se preferir):</label><br>
@@ -56,6 +57,7 @@
         <input type="radio" name="diagnostico" value="nenhum" required> Nunca<br><br>
     </div>
 
+    <!-- Avaliação de Ansiedade -->
     <div class="form-section" id="page2">
         <h2>Avaliação de Ansiedade</h2>
         <label>Nos últimos 14 dias, você tem se sentido excessivamente preocupado(a) ou ansioso(a), mesmo com situações cotidianas?</label><br>
@@ -64,36 +66,85 @@
         <input type="radio" name="preocupacao" value="2" required> Frequentemente<br>
         <input type="radio" name="preocupacao" value="3" required> Quase sempre<br><br>
 
-        <!-- Repita para outras perguntas... -->
         <label>Você tem evitado atividades sociais ou profissionais por se sentir ansioso(a)?</label><br>
         <input type="radio" name="atividades_sociais" value="0" required> Nunca<br>
         <input type="radio" name="atividades_sociais" value="1" required> Às vezes<br>
         <input type="radio" name="atividades_sociais" value="2" required> Frequentemente<br>
         <input type="radio" name="atividades_sociais" value="3" required> Sempre<br><br>
 
-        <!-- Continue com outras perguntas para ansiedade -->
+        <label>Você tem sentido dificuldade em controlar seus pensamentos, como se estivesse sempre pensando demais?</label><br>
+        <input type="radio" name="controle_pensamentos" value="0" required> Nunca<br>
+        <input type="radio" name="controle_pensamentos" value="1" required> Às vezes<br>
+        <input type="radio" name="controle_pensamentos" value="2" required> Frequentemente<br>
+        <input type="radio" name="controle_pensamentos" value="3" required> Quase sempre<br><br>
+
+        <label>Você já experimentou sintomas físicos como dor no peito, falta de ar ou tonturas sem causa aparente?</label><br>
+        <input type="radio" name="sintomas_fisicos" value="0" required> Nunca<br>
+        <input type="radio" name="sintomas_fisicos" value="1" required> Raramente<br>
+        <input type="radio" name="sintomas_fisicos" value="2" required> Frequentemente<br>
+        <input type="radio" name="sintomas_fisicos" value="3" required> Sempre<br><br>
+
+        <label>Nos últimos 14 dias, você se sentiu tenso(a) ou agitado(a), sem conseguir relaxar?</label><br>
+        <input type="radio" name="tensao_agitacao" value="0" required> Nunca<br>
+        <input type="radio" name="tensao_agitacao" value="1" required> Raramente<br>
+        <input type="radio" name="tensao_agitacao" value="2" required> Frequentemente<br>
+        <input type="radio" name="tensao_agitacao" value="3" required> Sempre<br><br>
     </div>
 
+    <!-- Avaliação de Depressão -->
     <div class="form-section" id="page3">
         <h2>Avaliação de Depressão</h2>
-        <!-- Repita a estrutura de perguntas para depressão -->
         <label>Nos últimos 14 dias, você se sentiu triste ou com um humor deprimido na maior parte do tempo?</label><br>
         <input type="radio" name="humor_deprimido" value="0" required> Nunca<br>
         <input type="radio" name="humor_deprimido" value="1" required> Às vezes<br>
         <input type="radio" name="humor_deprimido" value="2" required> Frequentemente<br>
         <input type="radio" name="humor_deprimido" value="3" required> Quase sempre<br><br>
 
-        <!-- Continue com outras perguntas para depressão -->
+        <label>Você tem perdido o interesse ou prazer em atividades que costumava gostar?</label><br>
+        <input type="radio" name="interesse_atividades" value="0" required> Não, continuo fazendo as mesmas coisas<br>
+        <input type="radio" name="interesse_atividades" value="1" required> Perdi um pouco o interesse<br>
+        <input type="radio" name="interesse_atividades" value="2" required> Tenho pouco interesse nas atividades<br>
+        <input type="radio" name="interesse_atividades" value="3" required> Não sinto prazer em nada que fazia antes<br><br>
+
+        <label>Você tem se sentido culpado(a) ou com baixa autoestima?</label><br>
+        <input type="radio" name="culpa_autoestima" value="0" required> Nunca<br>
+        <input type="radio" name="culpa_autoestima" value="1" required> Raramente<br>
+        <input type="radio" name="culpa_autoestima" value="2" required> Frequentemente<br>
+        <input type="radio" name="culpa_autoestima" value="3" required> Sempre<br><br>
+
+        <label>Você tem tido dificuldades em tomar decisões simples, como o que comer ou que roupa vestir?</label><br>
+        <input type="radio" name="decisoes_simples" value="0" required> Não, estou conseguindo me decidir<br>
+        <input type="radio" name="decisoes_simples" value="1" required> Às vezes tenho essa dificuldade<br>
+        <input type="radio" name="decisoes_simples" value="2" required> Frequentemente fico paralisado(a)<br>
+        <input type="radio" name="decisoes_simples" value="3" required> Sempre tenho problemas com isso<br><br>
+
+        <label>Você tem se sentido sem energia ou motivação para realizar atividades do dia a dia?</label><br>
+        <input type="radio" name="energia_atividades" value="0" required> Não, minha energia está normal<br>
+        <input type="radio" name="energia_atividades" value="1" required> Às vezes me sinto cansado(a)<br>
+        <input type="radio" name="energia_atividades" value="2" required> Frequentemente me sinto sem energia<br>
+        <input type="radio" name="energia_atividades" value="3" required> Sempre me sinto exausto(a)<br><br>
     </div>
 
+    <!-- Impacto no Dia a Dia -->
     <div class="form-section" id="page4">
         <h2>Impacto no Dia a Dia</h2>
-        <!-- Perguntas de impacto no trabalho, sono, e isolamento social -->
         <label>Nos últimos 14 dias, como a ansiedade ou depressão tem afetado seu trabalho, estudos ou vida pessoal?</label><br>
         <input type="radio" name="impacto_trabalho" value="0" required> Nada<br>
         <input type="radio" name="impacto_trabalho" value="1" required> Um pouco<br>
         <input type="radio" name="impacto_trabalho" value="2" required> Afeta frequentemente<br>
         <input type="radio" name="impacto_trabalho" value="3" required> Afeta muito<br><br>
+
+        <label>Nos últimos 14 dias, como você tem dormido?</label><br>
+        <input type="radio" name="sono" value="0" required> Durmo bem, sem problemas<br>
+        <input type="radio" name="sono" value="1" required> Às vezes tenho dificuldades para dormir<br>
+        <input type="radio" name="sono" value="2" required> Frequentemente tenho insônia ou acordo durante a noite<br>
+        <input type="radio" name="sono" value="3" required> Quase nunca consigo ter uma noite de sono tranquila<br><br>
+
+        <label>Você tem se afastado de amigos, familiares ou outras pessoas importantes na sua vida?</label><br>
+        <input type="radio" name="isolamento_social" value="0" required> Não, meu contato social está normal<br>
+        <input type="radio" name="isolamento_social" value="1" required> Sim, tenho me afastado um pouco<br>
+        <input type="radio" name="isolamento_social" value="2" required> Sim, tenho evitado interações sociais<br>
+        <input type="radio" name="isolamento_social" value="3" required> Quase sempre me isolo e evito o contato com outros<br><br>
     </div>
 
     <button type="button" onclick="calcularResultado()">Enviar</button>
@@ -106,18 +157,21 @@
         let pontuacaoAnsiedade = 0;
         let pontuacaoDepressao = 0;
 
-        // Calcular pontuação de ansiedade
+        // Pontuação de ansiedade
         const preocupacao = document.querySelector('input[name="preocupacao"]:checked').value;
         const atividades_sociais = document.querySelector('input[name="atividades_sociais"]:checked').value;
-        pontuacaoAnsiedade += parseInt(preocupacao) + parseInt(atividades_sociais);
-        
-        // Continue calculando outras perguntas de ansiedade...
-        
-        // Calcular pontuação de depressão
+        const controle_pensamentos = document.querySelector('input[name="controle_pensamentos"]:checked').value;
+        const sintomas_fisicos = document.querySelector('input[name="sintomas_fisicos"]:checked').value;
+        const tensao_agitacao = document.querySelector('input[name="tensao_agitacao"]:checked').value;
+        pontuacaoAnsiedade += parseInt(preocupacao) + parseInt(atividades_sociais) + parseInt(controle_pensamentos) + parseInt(sintomas_fisicos) + parseInt(tensao_agitacao);
+
+        // Pontuação de depressão
         const humor_deprimido = document.querySelector('input[name="humor_deprimido"]:checked').value;
-        pontuacaoDepressao += parseInt(humor_deprimido);
-        
-        // Continue calculando outras perguntas de depressão...
+        const interesse_atividades = document.querySelector('input[name="interesse_atividades"]:checked').value;
+        const culpa_autoestima = document.querySelector('input[name="culpa_autoestima"]:checked').value;
+        const decisoes_simples = document.querySelector('input[name="decisoes_simples"]:checked').value;
+        const energia_atividades = document.querySelector('input[name="energia_atividades"]:checked').value;
+        pontuacaoDepressao += parseInt(humor_deprimido) + parseInt(interesse_atividades) + parseInt(culpa_autoestima) + parseInt(decisoes_simples) + parseInt(energia_atividades);
 
         // Exibir resultado
         const resultDiv = document.getElementById('result');
