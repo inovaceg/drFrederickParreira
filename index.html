@@ -7,23 +7,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     
     <style>
-        /* Configuração do fundo com gradiente */
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
             background: linear-gradient(to right, #dae2f8, #d6a4a4);
-            color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
         }
-        
-        /* Contêiner principal do formulário */
         .container {
             width: 100%;
-            max-width: 600px;
+            max-width: 700px;
             margin: 20px;
             padding: 20px;
             background: #fff;
@@ -32,21 +28,46 @@
             overflow: hidden;
             animation: fadeIn 0.5s ease-in-out;
         }
-
-        /* Título principal */
         h1 {
             text-align: center;
             color: #4CAF50;
             margin-top: 0;
+            font-size: 1.8em;
         }
-
-        /* Fade-in para transição suave */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .description {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #666;
         }
-
-        /* Configurações para cada seção do formulário */
+        .about-doctor {
+            background-color: #eaf2f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #4CAF50;
+            text-align: center;
+        }
+        .about-doctor h3 {
+            margin-top: 0;
+            font-size: 1.1em;
+        }
+        .progress-bar {
+            background-color: #e0e0e0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .progress {
+            background-color: #4CAF50;
+            height: 100%;
+            width: 0%;
+        }
         .form-section {
             display: none;
             padding: 20px;
@@ -56,8 +77,6 @@
             display: block;
             animation: fadeIn 0.4s ease;
         }
-
-        /* Configuração dos botões de navegação */
         .form-navigation {
             display: flex;
             justify-content: space-between;
@@ -76,8 +95,6 @@
         .form-navigation button:hover {
             background-color: #45a049;
         }
-
-        /* Estilo para o campo de resultado */
         .result {
             padding: 20px;
             border-radius: 8px;
@@ -90,8 +107,6 @@
             color: #4CAF50;
             font-weight: 500;
         }
-
-        /* Estilo para o campo de WhatsApp */
         #whatsapp-field {
             padding: 20px;
             background: #f9f9f9;
@@ -118,33 +133,60 @@
 
 <div class="container">
     <h1>Avaliação de Ansiedade e Depressão</h1>
-    <p>Este formulário foi elaborado para ajudá-lo(a) a entender melhor seus níveis de ansiedade e depressão. Responda as perguntas e receba uma análise detalhada sobre seu estado emocional atual.</p>
+    <div class="description">
+        <p>Bem-vindo ao questionário de avaliação de saúde mental. Todas as informações são confidenciais e usadas apenas para orientações e acompanhamento.</p>
+    </div>
+    
+    <div class="about-doctor">
+        <h3>Sobre o Dr. Frederick Parreira</h3>
+        <p>Dr. Frederick Parreira é especialista em saúde mental com mais de 15 anos de experiência, atuando com uma abordagem humanizada e científica. Seu trabalho é focado em ajudar pessoas a superar a ansiedade, depressão e outros desafios emocionais, promovendo o bem-estar com respeito e acolhimento.</p>
+    </div>
+    
+    <button onclick="startForm()">Iniciar Questionário</button>
+    
+    <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+    </div>
 
-    <form id="surveyForm">
-        <!-- Informações Básicas -->
+    <form id="surveyForm" style="display: none;">
+        <!-- Seção de Dados Demográficos -->
         <div class="form-section active" id="section1">
-            <h2>Informações Básicas</h2>
+            <h2>Dados Demográficos</h2>
             <label>Nome (ou apelido, se preferir):</label><br>
             <input type="text" name="nome" required><br><br>
 
             <label>Idade:</label><br>
             <input type="number" name="idade" required><br><br>
 
-            <label>Você já foi diagnosticado com ansiedade, depressão ou ambos?</label><br>
-            <input type="radio" name="diagnostico" value="ansiedade" required> Ansiedade<br>
-            <input type="radio" name="diagnostico" value="depressao" required> Depressão<br>
-            <input type="radio" name="diagnostico" value="ambos" required> Ambos<br>
-            <input type="radio" name="diagnostico" value="nenhum" required> Nunca<br><br>
+            <label>Gênero:</label><br>
+            <input type="radio" name="genero" value="Masculino" required> Masculino<br>
+            <input type="radio" name="genero" value="Feminino" required> Feminino<br>
+            <input type="radio" name="genero" value="Outro" required> Outro<br>
+            <input type="radio" name="genero" value="Prefiro não dizer" required> Prefiro não dizer<br><br>
+
+            <label>Localização (opcional):</label><br>
+            <input type="text" name="localizacao" placeholder="Estado ou região"><br><br>
+
+            <label>Nível de Escolaridade (opcional):</label><br>
+            <select name="escolaridade">
+                <option value="">Selecione</option>
+                <option value="Ensino Fundamental">Ensino Fundamental</option>
+                <option value="Ensino Médio">Ensino Médio</option>
+                <option value="Ensino Superior">Ensino Superior</option>
+                <option value="Pós-Graduação">Pós-Graduação</option>
+                <option value="Prefiro não dizer">Prefiro não dizer</option>
+            </select><br><br>
         </div>
 
-        <!-- Avaliação de Ansiedade -->
+        <!-- Seção de Perguntas de Ansiedade -->
         <div class="form-section" id="section2">
             <h2>Avaliação de Ansiedade</h2>
-            <label>Nos últimos 14 dias, você tem se sentido excessivamente preocupado(a) ou ansioso(a), mesmo com situações cotidianas?</label><br>
-            <input type="radio" name="preocupacao" value="0" required> Nunca<br>
-            <input type="radio" name="preocupacao" value="1" required> Raramente<br>
-            <input type="radio" name="preocupacao" value="2" required> Frequentemente<br>
-            <input type="radio" name="preocupacao" value="3" required> Quase sempre<br><br>
+            <label>Nos últimos 14 dias, com que frequência você se sentiu tenso(a) ou agitado(a)?</label><br>
+            <input type="radio" name="tensao" value="4" required> Quase o tempo todo<br>
+            <input type="radio" name="tensao" value="3" required> Na maioria das vezes<br>
+            <input type="radio" name="tensao" value="2" required> De vez em quando<br>
+            <input type="radio" name="tensao" value="1" required> Raramente<br>
+            <input type="radio" name="tensao" value="0" required> Nunca<br><br>
         </div>
 
         <!-- Navegação entre as seções -->
@@ -167,8 +209,13 @@
 </div>
 
 <script>
-    let currentSection = 0; // Inicializa na primeira seção
-    showSection(currentSection); // Exibe a primeira seção
+    function startForm() {
+        document.querySelector("button").style.display = "none";
+        document.getElementById("surveyForm").style.display = "block";
+    }
+
+    let currentSection = 0;
+    showSection(currentSection);
 
     function showSection(n) {
         const sections = document.querySelectorAll('.form-section');
@@ -176,8 +223,7 @@
             section.classList.remove('active');
             if (index === n) section.classList.add('active');
         });
-
-        // Ajusta os botões de navegação
+        updateProgress(n);
         const nextBtn = document.getElementById('nextBtn');
         const prevBtn = document.getElementById('prevBtn');
         if (n === 0) {
@@ -185,7 +231,6 @@
         } else {
             prevBtn.style.display = "inline";
         }
-
         if (n === sections.length - 1) {
             nextBtn.innerHTML = "Enviar";
             nextBtn.onclick = calcularResultado;
@@ -197,21 +242,15 @@
     function nextPrev(n) {
         const sections = document.querySelectorAll('.form-section');
         currentSection = currentSection + n;
-
-        // Exibe a seção correta
         if (currentSection >= 0 && currentSection < sections.length) {
             showSection(currentSection);
         }
     }
 
     function calcularResultado() {
-        let pontuacaoAnsiedade = 0;
-        let pontuacaoDepressao = 0;
         const resultDiv = document.getElementById('result');
         resultDiv.style.display = 'block';
-
-        let resultadoFinal = `<h2>Sintomas Avaliados</h2>
-                              <p>Com base em suas respostas, veja abaixo uma análise preliminar. Recomendamos buscar apoio profissional caso os sintomas persistam.</p>`;
+        let resultadoFinal = "<h2>Resultado da Avaliação</h2><p>Avaliação detalhada será apresentada aqui, sugerindo o nível de ansiedade e depressão e recomendando orientações personalizadas.</p>";
         resultDiv.innerHTML = resultadoFinal;
         document.getElementById('whatsapp-field').style.display = 'block';
     }
@@ -223,6 +262,13 @@
         } else {
             alert("Por favor, insira um número de WhatsApp válido.");
         }
+    }
+
+    function updateProgress(section) {
+        const progress = document.getElementById("progress");
+        const totalSections = document.querySelectorAll(".form-section").length;
+        const progressWidth = ((section + 1) / totalSections) * 100;
+        progress.style.width = progressWidth + "%";
     }
 </script>
 
