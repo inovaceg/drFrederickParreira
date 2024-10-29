@@ -3,55 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avaliação de Ansiedade e Depressão</title>
+    <title>Avaliação de Ansiedade e Depressão com Dr. Frederick Parreira</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    
     <style>
+        /* Configuração do fundo com gradiente */
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to right, #f0f4f8, #e6ecf2);
+            background: linear-gradient(to right, #dae2f8, #d6a4a4);
             color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
-        h1 {
-            text-align: center;
-            color: #4CAF50;
-            padding-top: 20px;
-        }
+        
+        /* Contêiner principal do formulário */
         .container {
             width: 100%;
             max-width: 600px;
-            margin: auto;
+            margin: 20px;
             padding: 20px;
             background: #fff;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            margin-top: 30px;
-            margin-bottom: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-in-out;
         }
+
+        /* Título principal */
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-top: 0;
+        }
+
+        /* Fade-in para transição suave */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Configurações para cada seção do formulário */
         .form-section {
             display: none;
             padding: 20px;
+            border-bottom: 1px solid #eee;
         }
         .form-section.active {
             display: block;
-            transition: opacity 0.4s ease;
+            animation: fadeIn 0.4s ease;
         }
+
+        /* Configuração dos botões de navegação */
         .form-navigation {
             display: flex;
             justify-content: space-between;
             padding: 20px 0;
-            position: sticky;
-            bottom: 0;
-            background: #fff;
-            border-top: 1px solid #ddd;
         }
         .form-navigation button {
             background-color: #4CAF50;
             color: #fff;
             border: none;
             padding: 10px 20px;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
             font-weight: 500;
             transition: background 0.3s ease;
@@ -59,6 +76,8 @@
         .form-navigation button:hover {
             background-color: #45a049;
         }
+
+        /* Estilo para o campo de resultado */
         .result {
             padding: 20px;
             border-radius: 8px;
@@ -71,6 +90,8 @@
             color: #4CAF50;
             font-weight: 500;
         }
+
+        /* Estilo para o campo de WhatsApp */
         #whatsapp-field {
             padding: 20px;
             background: #f9f9f9;
@@ -83,7 +104,7 @@
             background-color: #25D366;
             color: white;
             padding: 10px 20px;
-            border-radius: 4px;
+            border-radius: 5px;
             border: none;
             cursor: pointer;
             transition: background 0.3s ease;
@@ -97,9 +118,113 @@
 
 <div class="container">
     <h1>Avaliação de Ansiedade e Depressão</h1>
-    <!-- Conteúdo do formulário permanece igual -->
-    <!-- Código do script e demais conteúdos do formulário podem permanecer o mesmo -->
+    <p>Este formulário foi elaborado para ajudá-lo(a) a entender melhor seus níveis de ansiedade e depressão. Responda as perguntas e receba uma análise detalhada sobre seu estado emocional atual.</p>
+
+    <form id="surveyForm">
+        <!-- Informações Básicas -->
+        <div class="form-section active" id="section1">
+            <h2>Informações Básicas</h2>
+            <label>Nome (ou apelido, se preferir):</label><br>
+            <input type="text" name="nome" required><br><br>
+
+            <label>Idade:</label><br>
+            <input type="number" name="idade" required><br><br>
+
+            <label>Você já foi diagnosticado com ansiedade, depressão ou ambos?</label><br>
+            <input type="radio" name="diagnostico" value="ansiedade" required> Ansiedade<br>
+            <input type="radio" name="diagnostico" value="depressao" required> Depressão<br>
+            <input type="radio" name="diagnostico" value="ambos" required> Ambos<br>
+            <input type="radio" name="diagnostico" value="nenhum" required> Nunca<br><br>
+        </div>
+
+        <!-- Avaliação de Ansiedade -->
+        <div class="form-section" id="section2">
+            <h2>Avaliação de Ansiedade</h2>
+            <label>Nos últimos 14 dias, você tem se sentido excessivamente preocupado(a) ou ansioso(a), mesmo com situações cotidianas?</label><br>
+            <input type="radio" name="preocupacao" value="0" required> Nunca<br>
+            <input type="radio" name="preocupacao" value="1" required> Raramente<br>
+            <input type="radio" name="preocupacao" value="2" required> Frequentemente<br>
+            <input type="radio" name="preocupacao" value="3" required> Quase sempre<br><br>
+        </div>
+
+        <!-- Navegação entre as seções -->
+        <div class="form-navigation">
+            <button type="button" id="prevBtn" onclick="nextPrev(-1)" style="display:none;">Anterior</button>
+            <button type="button" id="nextBtn" onclick="nextPrev(1)">Próximo</button>
+        </div>
+    </form>
+
+    <div id="result" class="result"></div>
+
+    <!-- Campo para número do WhatsApp -->
+    <div id="whatsapp-field">
+        <h3>Gostaria de receber orientações personalizadas no WhatsApp?</h3>
+        <p>Preencha com seu número de WhatsApp para receber dicas e orientações exclusivas.</p>
+        <label for="whatsapp-number">Digite seu número de WhatsApp:</label><br>
+        <input type="tel" id="whatsapp-number" name="whatsapp-number" placeholder="(XX) XXXXX-XXXX" pattern="\(\d{2}\) \d{5}-\d{4}"><br><br>
+        <button type="button" class="submit-whatsapp" onclick="enviarWhatsApp()">Enviar Número</button>
+    </div>
 </div>
+
+<script>
+    let currentSection = 0; // Inicializa na primeira seção
+    showSection(currentSection); // Exibe a primeira seção
+
+    function showSection(n) {
+        const sections = document.querySelectorAll('.form-section');
+        sections.forEach((section, index) => {
+            section.classList.remove('active');
+            if (index === n) section.classList.add('active');
+        });
+
+        // Ajusta os botões de navegação
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        if (n === 0) {
+            prevBtn.style.display = "none";
+        } else {
+            prevBtn.style.display = "inline";
+        }
+
+        if (n === sections.length - 1) {
+            nextBtn.innerHTML = "Enviar";
+            nextBtn.onclick = calcularResultado;
+        } else {
+            nextBtn.innerHTML = "Próximo";
+        }
+    }
+
+    function nextPrev(n) {
+        const sections = document.querySelectorAll('.form-section');
+        currentSection = currentSection + n;
+
+        // Exibe a seção correta
+        if (currentSection >= 0 && currentSection < sections.length) {
+            showSection(currentSection);
+        }
+    }
+
+    function calcularResultado() {
+        let pontuacaoAnsiedade = 0;
+        let pontuacaoDepressao = 0;
+        const resultDiv = document.getElementById('result');
+        resultDiv.style.display = 'block';
+
+        let resultadoFinal = `<h2>Sintomas Avaliados</h2>
+                              <p>Com base em suas respostas, veja abaixo uma análise preliminar. Recomendamos buscar apoio profissional caso os sintomas persistam.</p>`;
+        resultDiv.innerHTML = resultadoFinal;
+        document.getElementById('whatsapp-field').style.display = 'block';
+    }
+
+    function enviarWhatsApp() {
+        const numero = document.getElementById('whatsapp-number').value;
+        if (numero) {
+            alert(`Número de WhatsApp ${numero} enviado!`);
+        } else {
+            alert("Por favor, insira um número de WhatsApp válido.");
+        }
+    }
+</script>
 
 </body>
 </html>
